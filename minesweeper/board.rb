@@ -1,4 +1,4 @@
-class Board
+class MineSweeperBoard
   attr_reader :grid, :height, :width
 
   def initialize(height = nil, width = nil)

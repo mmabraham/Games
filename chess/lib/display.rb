@@ -1,5 +1,5 @@
 require 'colorize'
-require_relative 'cursor'
+require_relative '../../utils/cursor'
 
 class Display
   W_ICON = {

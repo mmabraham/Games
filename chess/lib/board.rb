@@ -1,6 +1,6 @@
 class InvalidMoveError < StandardError; end
 
-class Board
+class ChessBoard
   attr_accessor :grid, :errors, :prev_move
 
   def initialize(grid = nil)
@@ -70,7 +70,7 @@ class Board
   end
 
   def dup
-    double_board = Board.new
+    double_board = ChessBoard.new
     double_board.grid = grid.map do |rows|
       rows.map do |piece|
         if piece.is_a?(NullPiece)

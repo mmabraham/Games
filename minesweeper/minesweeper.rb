@@ -7,12 +7,12 @@ DEFAULT_MINES = 12
 DEFAULT_HEIGHT = 10
 DEFAULT_WIDTH = 10
 
-class MineSweeperGame
+class MineSweeper
   attr_reader :secret_board, :player, :mines, :height, :width
 
   def initialize(mines = DEFAULT_MINES, height = nil, width = nil)
     @mines, @height, @width = mines, height, width
-    @secret_board = Board.new(height, width)
+    @secret_board = MineSweeperBoard.new(height, width)
   end
 
 
@@ -25,7 +25,7 @@ class MineSweeperGame
   def setup
     secret_board.place_random_mines(mines)
     secret_board.each_pos { |pos| secret_board[pos] = secret_board.score(pos).to_s.to_sym }
-    @player = Player.new(Board.new(height, width))
+    @player = Player.new(MineSweeperBoard.new(height, width))
   end
 
   private
@@ -71,6 +71,39 @@ class MineSweeperGame
     cleared_cells = player.board.all_cells.count { |cell| cell && cell != :f && cell != :"?"}
     cleared_cells >= height * width - mines
   end
+
+  # For integration with the other games
+
+  def self.options
+    [
+      [
+        [" 5 x 5 ", "10 x 10"],
+        ["15 x 15", "15 x 20"],
+        ["20 x 20", "20 x 25"],
+        ["30 x 30", "30 x 35"],
+      ],
+      [
+        ["5  ", "10 ", "15 "],
+        ["20 ", "30 ", "40 "],
+        ["50 ", "100", "150"],
+        ["200", "250", "300"]
+      ]
+    ]
+  end
+
+  def self.prompts
+    [
+      "Please select the grid size",
+      "Please select the number of mines"
+    ]
+  end
+
+  def self.init_with_options(grid_size, num_mines)
+    width, height = grid_size.split("x").map(&:to_i)
+    game = MineSweeper.new(num_mines.to_i, height.to_i, width.to_i)
+    game.setup
+    game.play
+  end
 end
 
 def prompt(str)
@@ -84,7 +117,7 @@ if $PROGRAM_NAME == __FILE__
   width = ARGV[1] || prompt("Please enter grid width:")
   mines = ARGV[2] || prompt("Please enter number of mines to sweep:")
 
-  game = MineSweeperGame.new(mines.to_i, height.to_i, width.to_i)
+  game = MineSweeper.new(mines.to_i, height.to_i, width.to_i)
   game.setup
   game.play
 end

@@ -3,7 +3,7 @@ class Player
 
   attr_reader :board
 
-  def initialize(board = Board.new)
+  def initialize(board = MineSweeperBoard.new)
     @board = board
   end
 
