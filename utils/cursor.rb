@@ -4,6 +4,7 @@ KEYMAP = {
   "\u0003" => :ctrl_c,
   "\r" => :return,
   " " => :space,
+  "f" => :f,
   "k" => :up,
   "j" => :down,
   "h" => :left,

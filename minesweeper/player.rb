@@ -1,19 +1,27 @@
+class MineSweeperCursor < Cursor
+  def handle_key(key)
+    return cursor_pos, true if key == :f
+    return super, false
+  end
+end
+
 class Player
   NEXT_FLAG = {nil => :f, :f => :"?", :"?" => nil}
 
-  attr_reader :board
+  attr_reader :board, :cursor
 
   def initialize(board = MineSweeperBoard.new)
     @board = board
+    @cursor = MineSweeperCursor.new([0, 0], board)
   end
 
   def display_board
     system('clear')
     puts header
-    board.grid.each_with_index do |row, i|
+    board.grid.each_with_index do |row, rowIdx|
       puts divider
-      print " #{index(i)} |"
-      puts row.map { |token| format(token) }.join + index(i)
+      print " #{index(rowIdx)} |"
+      puts row.map.with_index { |token, colIdx| format(token, [rowIdx, colIdx]) }.join + index(rowIdx)
     end
     puts divider
     puts header
@@ -23,10 +31,9 @@ class Player
     loop do
       $stdout.puts "Enter a position to sweep:"
       $stdout.puts "add 'F' to place flag"
-      input = $stdin.gets
-      pos = to_indices(input)
+      pos, flag_added = get_input
       next unless board.valid?(pos)
-      next if flag_added?(input, pos)
+      next if has_flag?(pos, flag_added)
       return pos
     end
   end
@@ -36,16 +43,18 @@ class Player
   end
 
   private
-  def flag_added?(input, pos)
-    if input.downcase.include?("f") || board[pos] == :f || board[pos] == :"?"
+  def has_flag?(pos, flag_added)
+    if flag_added || board[pos] == :f || board[pos] == :"?"
       board[pos] = NEXT_FLAG[board[pos]]
       display_board
       true
     end
   end
 
-  def format(token)
-    "#{colorized(token)}|"
+  def format(token, pos)
+    cell = colorized(token)
+    cell = cell.colorize(background: :light_yellow) if pos === cursor.cursor_pos
+    "#{cell}|"
   end
 
   def index(i)
@@ -80,5 +89,15 @@ class Player
 
   def header
     "     " + (0...board.width).map { |i| index(i) }.join("  ")
+  end
+
+  private
+
+  def get_input
+    while true
+      display_board
+      pos = cursor.get_input
+      return pos if pos
+    end
   end
 end

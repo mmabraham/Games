@@ -1,3 +1,4 @@
+require "byebug"
 require_relative './utils/options.rb'
 require_relative './chess/chess.rb'
 require_relative './minesweeper/minesweeper.rb'
