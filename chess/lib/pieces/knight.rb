@@ -1,15 +1,17 @@
-class Knight < Piece
-  include Stepable
+module Chess
+  class Knight < Chess::Piece
+    include Stepable
 
-  def symbol
-    :N
-  end
+    def symbol
+      :N
+    end
 
-  def value
-    3 + super
-  end
+    def value
+      3 + super
+    end
 
-  def diffs
-    [ [-2,-1], [-2,1], [2,1], [2,-1],  [1,2], [1,-2], [-1,2], [-1,-2] ]
+    def diffs
+      [ [-2,-1], [-2,1], [2,1], [2,-1],  [1,2], [1,-2], [-1,2], [-1,-2] ]
+    end
   end
 end

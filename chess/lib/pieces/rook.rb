@@ -1,17 +1,19 @@
-class Rook < Piece
-  include Slidable
+module Chess
+  class Rook < Chess::Piece
+    include Slidable
 
-  def symbol
-    :R
-  end
+    def symbol
+      :R
+    end
 
-  def value
-    5 + super
-  end
+    def value
+      5 + super
+    end
 
-  private
+    private
 
-  def move_dirs
-    [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    def move_dirs
+      [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    end
   end
 end

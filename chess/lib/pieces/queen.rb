@@ -1,18 +1,20 @@
-class Queen < Piece
-  include Slidable
+module Chess
+  class Queen < Chess::Piece
+    include Slidable
 
-  def symbol
-    :Q
-  end
+    def symbol
+      :Q
+    end
 
-  def value
-    9 + super
-  end
+    def value
+      9 + super
+    end
 
-  private
+    private
 
-  def move_dirs
-    [[0, 1], [0, -1], [1, 0], [-1, 0],
-    [1, -1], [1, 1], [-1, -1], [-1, 1]]
+    def move_dirs
+      [[0, 1], [0, -1], [1, 0], [-1, 0],
+      [1, -1], [1, 1], [-1, -1], [-1, 1]]
+    end
   end
 end

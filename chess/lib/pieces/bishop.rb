@@ -1,15 +1,17 @@
-class Bishop < Piece
-  include Slidable
+module Chess
+  class Bishop < Chess::Piece
+    include Slidable
 
-  def symbol
-    :B
-  end
+    def symbol
+      :B
+    end
 
-  def value
-    3 + super
-  end
+    def value
+      3 + super
+    end
 
-  def move_dirs
-    [[1, -1], [1, 1], [-1, -1], [-1, 1]]
+    def move_dirs
+      [[1, -1], [1, 1], [-1, -1], [-1, 1]]
+    end
   end
 end

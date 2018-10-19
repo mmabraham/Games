@@ -2,15 +2,17 @@ require "byebug"
 require_relative './utils/options.rb'
 require_relative './chess/chess.rb'
 require_relative './minesweeper/minesweeper.rb'
+require_relative './battleship/battleship.rb'
 
 
 def get_game
     game_name = Options.new([
         ["Chess"],
-        ["Mine Sweeper"]
+        ["Mine Sweeper"],
+        ["Battleship"]
         ], "Select a game:").get_option
     system("clear")
-    Object.const_get(game_name.gsub(" ", ""))
+    Object.const_get(game_name.gsub(" ", ""))::Game
 end
 
 def args(game)

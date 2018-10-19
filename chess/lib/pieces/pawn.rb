@@ -1,41 +1,43 @@
-class Pawn < Piece
-  attr_reader :initial_pos
+module Chess
+  class Pawn < Chess::Piece
+    attr_reader :initial_pos
 
-  def initialize(color, pos, board, initial_pos = nil)
-    @initial_pos = initial_pos || pos.dup
-    super(color, pos, board)
-  end
+    def initialize(color, pos, board, initial_pos = nil)
+      @initial_pos = initial_pos || pos.dup
+      super(color, pos, board)
+    end
 
-  def symbol
-    :p
-  end
+    def symbol
+      :p
+    end
 
-  def value
-    1 + super
-  end
+    def value
+      1 + super
+    end
 
-  def moves
-    valid_moves = [[pos[0] + dirr, pos[1]]]
-    valid_moves << [pos[0] + (dirr * 2), pos[1]] if pos == initial_pos
-    valid_moves.reject { |pos| pos.first > 7 || pos.first < 0 || board[pos].symbol } + captures
-  end
+    def moves
+      valid_moves = [[pos[0] + dirr, pos[1]]]
+      valid_moves << [pos[0] + (dirr * 2), pos[1]] if pos == initial_pos
+      valid_moves.reject { |pos| pos.first > 7 || pos.first < 0 || board[pos].symbol } + captures
+    end
 
-  # overwriting super dup to retain initial_pos
-  def dup(new_board)
-    Pawn.new(color, pos.dup, new_board, initial_pos)
-  end
+    # overwriting super dup to retain initial_pos
+    def dup(new_board)
+      Pawn.new(color, pos.dup, new_board, initial_pos)
+    end
 
-  private
+    private
 
-  def dirr
-    initial_pos.first == 1 ? 1 : -1
-  end
+    def dirr
+      initial_pos.first == 1 ? 1 : -1
+    end
 
-  def captures
-    result = [[pos[0] + dirr, pos[1] + 1], [pos[0] + dirr, pos[1] - 1]]
+    def captures
+      result = [[pos[0] + dirr, pos[1] + 1], [pos[0] + dirr, pos[1] - 1]]
 
-    result.select do |pos| pos.all? { |idx| idx < 8 && idx > -1 } &&
-      board[pos].symbol && board[pos].color != color
+      result.select do |pos| pos.all? { |idx| idx < 8 && idx > -1 } &&
+        board[pos].symbol && board[pos].color != color
+      end
     end
   end
 end
