@@ -1,3 +1,4 @@
+module Hangman
 ANIMATION = {
   1 => ["
      +---+
@@ -56,3 +57,4 @@ ANIMATION = {
         |
   ========="]
 }
+end
