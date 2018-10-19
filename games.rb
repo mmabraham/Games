@@ -3,13 +3,15 @@ require_relative './utils/options.rb'
 require_relative './chess/chess.rb'
 require_relative './minesweeper/minesweeper.rb'
 require_relative './battleship/battleship.rb'
+require_relative './towers-of-hanoi/towers_of_hanoi.rb'
 
 
 def get_game
     game_name = Options.new([
         ["Chess"],
         ["Mine Sweeper"],
-        ["Battleship"]
+        ["Battleship"],
+        ["Towers Of Hanoi"],
         ], "Select a game:").get_option
     system("clear")
     Object.const_get(game_name.gsub(" ", ""))::Game

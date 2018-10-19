@@ -79,7 +79,8 @@ class Cursor
   end
 
   def in_bounds?(pos)
-    pos[0] < board.grid.length && pos[1] < board.grid[0].length
+    pos[0] < board.grid.length && pos[1] < board.grid[0].length &&
+    pos[0] >= 0 && pos[1] >= 0
   end
 
   def toggle_selected

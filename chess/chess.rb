@@ -37,48 +37,48 @@ module Chess
       players.rotate!
     end
 
-      # For integration with the other games
+    # For integration with the other games
 
-      def self.options
+    def self.options
+      [
         [
-          [
-            ["Human Player"],
-            ["DFS Bot"],
-            ["BFS Bot"]
-          ], [
-            ["Human Player"],
-            ["DFS Bot"],
-            ["BFS Bot"]
-          ]
+          ["Human Player"],
+          ["DFS Bot"],
+          ["BFS Bot"]
+        ], [
+          ["Human Player"],
+          ["DFS Bot"],
+          ["BFS Bot"]
         ]
-      end
-    
-      def self.prompts
-        [
-          "Please select the player for white",
-          "Please select the player for black"
-        ]
-      end
-    
-      def self.init_with_options(white_name, black_name)
-        board = Chess::Board.new
-        display = Chess::Display.new(board)
-        player1 = self.player_type(white_name).new(display, :white, white_name)
-        player2 = self.player_type(black_name).new(display, :black, black_name)
-        game = Chess::Game.new(player1, player2, board)
-        game.play
-      end
+      ]
+    end
+  
+    def self.prompts
+      [
+        "Please select the player for white",
+        "Please select the player for black"
+      ]
+    end
+  
+    def self.init_with_options(white_name, black_name)
+      board = Chess::Board.new
+      display = Chess::Display.new(board)
+      player1 = self.player_type(white_name).new(display, :white, white_name)
+      player2 = self.player_type(black_name).new(display, :black, black_name)
+      game = Chess::Game.new(player1, player2, board)
+      game.play
+    end
 
-      def self.player_type(type)
-        case type
-        when "Human Player"
-          HumanPlayer
-        when "DFS Bot"
-          DFSPlayer
-        when "BFS Bot"
-          BFSPlayer
-        end
+    def self.player_type(type)
+      case type
+      when "Human Player"
+        HumanPlayer
+      when "DFS Bot"
+        DFSPlayer
+      when "BFS Bot"
+        BFSPlayer
       end
+    end
   end
 end
 
