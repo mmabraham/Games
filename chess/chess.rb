@@ -28,6 +28,7 @@ module Chess
         switch_player!
       end
       players.last.display.render
+      players.first.display.render
       puts "#{players.last.name} wins!"
     end
 
