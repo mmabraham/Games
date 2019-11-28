@@ -98,7 +98,7 @@ module Battleship
       if option == "Load Saved Game" || option == "load"
         game = Battleship::Game.load
       else 
-        Battleship::Game.new
+        game = Battleship::Game.new
         game.set_up
         game.switch_players
         game.set_up
